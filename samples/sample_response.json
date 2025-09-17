@@ -1,0 +1,9 @@
+{
+  "saved": 2,
+  "rejected": 2,
+  "errors": [
+    {"row": 4, "email": "alice@example.com", "errors": {"email": ["Duplicate email skipped."]}},
+    {"row": 5, "email": "", "errors": {"name": ["This field may not be blank."], "email": ["Enter a valid email address."], "age": ["Age must be between 0 and 120."]}}
+  ]
+}
+
