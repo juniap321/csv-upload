@@ -40,25 +40,23 @@ class CSVUploadView(APIView):
         existing_emails = set(User.objects.values_list('email', flat=True))
         seen_emails = set()
 
-        for index, row in enumerate(reader, start=2):  # data starts from line 2
+        for index, row in enumerate(reader, start=2):  
             raw_name = (row.get('name') or '').strip()
             raw_email = (row.get('email') or '').strip()
             raw_age = (row.get('age') or '').strip()
 
-            # Skip duplicates (existing or within same file)
             email_lower = raw_email.lower()
             if email_lower in existing_emails or email_lower in seen_emails:
                 rejected_count += 1
                 errors.append({'row': index, 'email': raw_email, 'errors': {'email': ['Duplicate email skipped.']}})
                 continue
 
-            # Coerce age to int if possible
             age_value = None
             if raw_age != '':
                 try:
                     age_value = int(raw_age)
                 except ValueError:
-                    age_value = raw_age  # keep as string so serializer shows type error
+                    age_value = raw_age
 
             serializer = UserSerializer(data={'name': raw_name, 'email': raw_email, 'age': age_value})
             if serializer.is_valid():
