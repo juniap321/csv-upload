@@ -42,4 +42,3 @@ class CSVUploadAPITests(TestCase):
         self.assertTrue(len(data['errors']) == 1)
 from django.test import TestCase
 
-# Create your tests here.
